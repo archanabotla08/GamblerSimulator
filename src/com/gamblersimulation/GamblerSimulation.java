@@ -27,11 +27,24 @@ public class GamblerSimulation {
 		}
 		return cash;
 	}
+	public int getTotalAmountWinorLoss(){
+		int daysPlaying = 20;
+		int day_stake =0;
+		int day = 0;
+		while(daysPlaying >0){
+			day++;
+			day_stake=stopStake();
+			daysPlaying=daysPlaying - 1;
+			totalAmount=totalAmount+day_stake;
+		}
+		System.out.println("Total Amount Earned or Loss by Gambler at end : " + totalAmount);
+		return totalAmount;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//System.out.print(stake +" "+bet);
 		GamblerSimulation gs = new GamblerSimulation();
-		System.out.println("Stake : " + gs.stopStake());
+		System.out.println("Stake : " + gs.getTotalAmountWinorLoss());
 	}
 
 }
