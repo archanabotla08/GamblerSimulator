@@ -4,13 +4,15 @@ public class GamblerSimulation {
 	public static final int  BET = 1 ;
 	public static int cash,lossCondition,winCondition,totalAmount=0,daysLoss,daysWins;
 
-	public static void betting(){
+	public static boolean betting(){
 		Random r = new Random();
 		int number = r.nextInt(2);
 		if(number == 1){
 			cash +=1;
+			return true;
 		}else{
 			cash -=1;
+			return false;
 		}
 	}
 	public int stopStake(int day){
@@ -59,12 +61,38 @@ public class GamblerSimulation {
 		System.out.println("Luckiest Day With MAX Amount : " + dayStake.get(size-1));
 		System.out.println("Unlucikest Day WIth MIN Amount: " + dayStake.get(0));
 	}
+	public void checkPlay(){
+		boolean result = betting();
+		Scanner sc = new Scanner(System.in);
+		if(result){
+		System.out.println("Enter the Choice for Play() : "+"\n"+ "1 : continue to play"+"\n"+"2: stop play");
+		int choice = sc.nextInt();
+		switch(choice){
+			case 1:
+			System.out.println("Continue the Play for next month : ");
+			getDayForLuckyorUnlucky();
+			break;
+			case 2:
+			System.out.println("Discontinue the play: ");
+			break;
+			default:
+			System.out.println("Invalid Choice");
+			break;
+		}
+		}
+	}
+	public void startPlay(){
+		betting();
+		stopStake(20);
+		getTotalAmountWinorLoss();
+		calculateForMonth();
+		getDayForLuckyorUnlucky();
+		checkPlay();
+	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//System.out.print(stake +" "+bet);
 		GamblerSimulation gs = new GamblerSimulation();
-		//System.out.println("Stake : " + gs.getDayForLuckyorUnlucky());
-		gs.getDayForLuckyorUnlucky();
+		gs.startPlay();
 	}
 
 }
+
